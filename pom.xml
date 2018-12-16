@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>social_common</module>
+        <module>social_base</module>
     </modules>
 
     <parent>

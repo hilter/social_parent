@@ -1,4 +1,4 @@
-package entity;
+package com.sh.entity;
 
 import java.util.List;
 

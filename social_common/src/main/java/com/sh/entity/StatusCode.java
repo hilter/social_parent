@@ -1,4 +1,4 @@
-package entity;
+package com.sh.entity;
 
 /**
  * @author 麦客子
