@@ -1,15 +1,23 @@
-package com.social.recruit.controller;
+package com.sh.article.controller;
+import java.util.List;
+import java.util.Map;
 
 import com.sh.entity.PageResult;
 import com.sh.entity.Result;
 import com.sh.entity.StatusCode;
-import com.social.recruit.pojo.Enterprise;
-import com.social.recruit.service.EnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import com.sh.article.pojo.Article;
+import com.sh.article.service.ArticleService;
+
+
 /**
  * 控制器层
  * @author Administrator
@@ -17,11 +25,11 @@ import java.util.Map;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/enterprise")
-public class EnterpriseController {
+@RequestMapping("/article")
+public class ArticleController {
 
 	@Autowired
-	private EnterpriseService enterpriseService;
+	private ArticleService articleService;
 	
 	
 	/**
@@ -30,7 +38,7 @@ public class EnterpriseController {
 	 */
 	@RequestMapping(method= RequestMethod.GET)
 	public Result findAll(){
-		return new Result(true,StatusCode.OK,"查询成功",enterpriseService.findAll());
+		return new Result(true, StatusCode.OK,"查询成功",articleService.findAll());
 	}
 	
 	/**
@@ -40,7 +48,7 @@ public class EnterpriseController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
-		return new Result(true,StatusCode.OK,"查询成功",enterpriseService.findById(id));
+		return new Result(true,StatusCode.OK,"查询成功",articleService.findById(id));
 	}
 
 
@@ -53,8 +61,8 @@ public class EnterpriseController {
 	 */
 	@RequestMapping(value="/search/{page}/{size}",method=RequestMethod.POST)
 	public Result findSearch(@RequestBody Map searchMap , @PathVariable int page, @PathVariable int size){
-		Page<Enterprise> pageList = enterpriseService.findSearch(searchMap, page, size);
-		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Enterprise>(pageList.getTotalElements(), pageList.getContent()) );
+		Page<Article> pageList = articleService.findSearch(searchMap, page, size);
+		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Article>(pageList.getTotalElements(), pageList.getContent()) );
 	}
 
 	/**
@@ -64,27 +72,27 @@ public class EnterpriseController {
      */
     @RequestMapping(value="/search",method = RequestMethod.POST)
     public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",enterpriseService.findSearch(searchMap));
+        return new Result(true,StatusCode.OK,"查询成功",articleService.findSearch(searchMap));
     }
 	
 	/**
 	 * 增加
-	 * @param enterprise
+	 * @param article
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public Result add(@RequestBody Enterprise enterprise  ){
-		enterpriseService.add(enterprise);
+	public Result add(@RequestBody Article article  ){
+		articleService.add(article);
 		return new Result(true,StatusCode.OK,"增加成功");
 	}
 	
 	/**
 	 * 修改
-	 * @param enterprise
+	 * @param article
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
-	public Result update(@RequestBody Enterprise enterprise, @PathVariable String id ){
-		enterprise.setId(id);
-		enterpriseService.update(enterprise);		
+	public Result update(@RequestBody Article article, @PathVariable String id ){
+		article.setId(id);
+		articleService.update(article);		
 		return new Result(true,StatusCode.OK,"修改成功");
 	}
 	
@@ -94,17 +102,8 @@ public class EnterpriseController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
-		enterpriseService.deleteById(id);
+		articleService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
-	}
-
-	/**
-	 * 查询热门企业
-	 * @return
-	 */
-	@RequestMapping(value = "/search/hotlist", method = RequestMethod.GET)
-	public Result hotlist() {
-		return new Result(true, StatusCode.OK, "查询成功", enterpriseService.hotList());
 	}
 	
 }

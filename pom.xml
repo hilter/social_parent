@@ -12,6 +12,8 @@
         <module>social_common</module>
         <module>social_base</module>
         <module>social_recruit</module>
+        <module>social_article</module>
+        <module>social_qa</module>
     </modules>
 
     <parent>
