@@ -12,14 +12,13 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 
+import com.sh.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import util.IdWorker;
 
 import com.sh.qa.dao.ProblemDao;
 import com.sh.qa.pojo.Problem;
@@ -152,6 +151,36 @@ public class ProblemService {
 			}
 		};
 
+	}
+
+
+	/**
+	 * 查询最新回复列表，带分页
+	 * @param labelid
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public Page<Problem> findNewList(String labelid,int page,int size){
+		//1.创建分页对象
+		PageRequest pageRequest = PageRequest.of(page-1,size);
+		//2.执行查询获取返回值，并返回
+		return problemDao.findNewList(labelid,pageRequest);
+	}
+
+
+	/**
+	 * 查询热门问题列表，带分页
+	 * @param labelid
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public Page<Problem> findHotList(String labelid,int page,int size){
+		//1.创建分页对象
+		PageRequest pageRequest = PageRequest.of(page-1,size);
+		//2.执行查询获取返回值，并返回
+		return problemDao.findHotList(labelid,pageRequest);
 	}
 
 }

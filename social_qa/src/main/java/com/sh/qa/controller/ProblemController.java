@@ -105,5 +105,39 @@ public class ProblemController {
 		problemService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}
-	
+
+	/**
+	 * 查询最新回复列表
+	 * @param labelid
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value="/newlist/{labelid}/{page}/{size}",method = RequestMethod.GET)
+	public Result findNewList(@PathVariable("labelid") String labelid,@PathVariable("page")int page,@PathVariable("size")int size){
+		//1.获取查询结果
+		Page<Problem> problemPage = problemService.findNewList(labelid,page,size);
+		//2.创建分页结果集对象
+		PageResult pageResult = new PageResult(problemPage.getTotalElements(),problemPage.getContent());
+		//3.创建返回值并返回
+		return new Result(true,StatusCode.OK,"查询成功",pageResult);
+	}
+
+
+	/**
+	 * 获取热门问题列表
+	 * @param labelid
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping(value="/hotlist/{labelid}/{page}/{size}",method = RequestMethod.GET)
+	public Result findHotList(@PathVariable("labelid") String labelid,@PathVariable("page")int page,@PathVariable("size")int size){
+		//1.获取查询结果
+		Page<Problem> problemPage = problemService.findHotList(labelid,page,size);
+		//2.创建分页结果集对象
+		PageResult pageResult = new PageResult(problemPage.getTotalElements(),problemPage.getContent());
+		//3.创建返回值并返回
+		return new Result(true,StatusCode.OK,"查询成功",pageResult);
+	}
 }
