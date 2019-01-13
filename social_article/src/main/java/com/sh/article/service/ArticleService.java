@@ -11,15 +11,17 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import javax.transaction.Transactional;
 
+import com.sh.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
-
-import util.IdWorker;
 
 import com.sh.article.dao.ArticleDao;
 import com.sh.article.pojo.Article;
@@ -31,11 +33,12 @@ import com.sh.article.pojo.Article;
  *
  */
 @Service
+@Transactional
 public class ArticleService {
 
 	@Autowired
 	private ArticleDao articleDao;
-	
+
 	@Autowired
 	private IdWorker idWorker;
 
@@ -172,6 +175,16 @@ public class ArticleService {
 			}
 		};
 
+	}
+
+
+	public void updateState(String id){
+		this.articleDao.updateState(id);
+	}
+
+
+	public void addThumbup(String id){
+		this.articleDao.addThumbup(id);
 	}
 
 }
