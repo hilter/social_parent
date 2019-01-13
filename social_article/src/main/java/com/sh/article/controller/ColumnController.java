@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sh.article.pojo.Column;
 import com.sh.article.service.ColumnService;
 
-import entity.PageResult;
-import entity.Result;
-import entity.StatusCode;
+import com.sh.entity.PageResult;
+import com.sh.entity.Result;
+import com.sh.entity.StatusCode;
 /**
  * 控制器层
  * @author Administrator

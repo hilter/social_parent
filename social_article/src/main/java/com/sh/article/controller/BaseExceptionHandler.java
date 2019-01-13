@@ -1,6 +1,6 @@
 package com.sh.article.controller;
-import entity.Result;
-import entity.StatusCode;
+import com.sh.entity.Result;
+import com.sh.entity.StatusCode;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
