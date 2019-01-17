@@ -14,6 +14,7 @@
         <module>social_recruit</module>
         <module>social_article</module>
         <module>social_qa</module>
+        <module>social_gathering</module>
     </modules>
 
     <parent>
